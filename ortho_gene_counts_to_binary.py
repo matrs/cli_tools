@@ -1,11 +1,11 @@
 #! /usr/bin/env python
 
 #python ortho_gene_counts_to_binary -h
-
 from pathlib import Path
-import pandas as pd
 import numpy as np
 from argparse import ArgumentParser
+#pandas needed
+import pandas as pd
 
 def genecounts_to_binary(gene_count_tsv, out_file):
     '''
