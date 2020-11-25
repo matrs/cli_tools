@@ -7,7 +7,6 @@ except ImportError:
     print("Biopython is required and it couldn't be imported")
 
 #Part of the standard library
-from io import TextIOWrapper
 from pathlib import Path
 from collections import defaultdict
 import subprocess as sp
