@@ -25,9 +25,9 @@ def raxml_part_to_nexus(in_file, out_file):
         for i, line in enumerate(parth):
             line_parts = line.strip().replace(',','').split(' ')
             print(f'    charset {line_parts[1]} = {line_parts[3]};', file=nexush)
-            #The last line before writing the models ==> "charpartition mine ="
             if i != n_lines - 1:
                 charpartition.append(f'{line_parts[0]}:{line_parts[1]}, ')
+            #The last line before writing the models ==> "charpartition mine ="
             else:
                 charpartition.append(f'{line_parts[0]}:{line_parts[1]};')
 
