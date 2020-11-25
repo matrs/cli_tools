@@ -91,7 +91,7 @@ def arg_parser(args):
                             description='Creates a concatenated alignment in fasta format'
                                          ' from a list of alignments in fasta format and'
                                          ' creates a partition file, where each block'
-                                         ' corresponds to an alignment.')
+                                         " corresponds to a MSA of an orthogroup's members.")
     parser.add_argument('genome_dir',
                         help = 'Directory containing all the genomes in fasta format.'
                         )
