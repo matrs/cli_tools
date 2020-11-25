@@ -1,6 +1,6 @@
 # cli_tools
 Scripts for a variety of things. All include a Command Line Interface.
-`Python` scripts have help that can be accessed by:
+For `python` scripts, see:
 ```terminal
 $ python script.py -h
 ```
