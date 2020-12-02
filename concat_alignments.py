@@ -7,7 +7,6 @@ except ImportError:
     print("Biopython is required and it couldn't be imported")
 
 #Part of the standard library
-from io import TextIOWrapper
 from pathlib import Path
 from collections import defaultdict
 import subprocess as sp
@@ -94,6 +93,7 @@ def arg_parser(args):
                                          ' creates a partition file for it, where each '
                                          'data block/partition corresponds to an individual'
                                          ' alignment.')
+
     parser.add_argument('genome_dir',
                         help = 'Directory containing all the genomes in fasta format.'
                         )
