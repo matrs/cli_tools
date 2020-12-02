@@ -62,7 +62,7 @@ def concat_alignments(genome_dir, aln_dir, ext='faa', out_name='concatenated.fa'
             uniq_id_seq = []
             uniq_id_fa = set()
 
-        write_partition(part_dic, part_file)
+    write_partition(part_dic, part_file)
         
     return 0
 
