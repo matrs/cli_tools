@@ -39,14 +39,13 @@ def raxml_part_to_nexus(in_file, out_file):
 
 def arg_parser(args):
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, 
-                            description=('Receives as input the output from modeltest-ng,'
-                                         ' a partition file compatible with'
-                                         ' RaxML, and creates a nexus partition file, ' 
+                            description=('Receives as input the output from modeltest-ng '
+                                         ' and a partition file compatible with'
+                                         ' RaxML. Creates a nexus partition file, which is ' 
                                          ' compatible with IQ-Tree.')
                                          )
     parser.add_argument('in_file', help = "Name of the input partition file, coming from"
-                        " modeltest-ng. If it doesn't include a path, file is saved" 
-                        " in the current  directory.")
+                        " modeltest-ng.")
     parser.add_argument('out_file', help = "Name of the output partition file,"
                         " if it doesn't include a path, file is saved in the current " 
                         " directory.")
