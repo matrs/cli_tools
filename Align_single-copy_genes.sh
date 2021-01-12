@@ -26,7 +26,7 @@ parallel -j $n_cores --plus "mafft --thread 1 --maxiterate 1000 --globalpair {} 
 $align_dir/{/.}.fa 2>> $align_dir/mafft.log" ::: $fasta_dir/*.fa
 
 
-#Trim all the columns composed of 100% gaps. These alignments should be concantenated
+#Trim all the columns composed of 100% gaps. These alignments should be concantenated afterwards
 parallel -j $n_cores --plus "trimal -in  $align_dir/{/.}.fa -out $align_dir/{/.}_trimal.fa  -noallgaps \
 -fasta -sgc > $align_dir/{/.}_trimal.scores" ::: $fasta_dir/*.fa
 
