@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# GNU parallel required, installed in most of the linux systems, compatible with mac osx too
+# GNU parallel required, present in most of the linux systems, compatible with mac osx too
 # Run it:
 # bash Align_single-copy_genes.sh results_Nov20/Single_Copy_Orthologue_Sequences Results_Nov20/alignments 12
 
@@ -19,9 +19,16 @@ align_dir=$2
 # because short aligments. 
 n_cores=$3
 
+trimal -in concatenated_rep.fa -out concatenated_rep_trimal.fa -noallgaps -fasta -sgc > gap_scores ::: $fasta_dir/*.fa
+
 mkdir -p "$align_dir"
 parallel -j $n_cores --plus "mafft --thread 1 --maxiterate 1000 --globalpair {} > \
 $align_dir/{/.}.fa 2>> $align_dir/mafft.log" ::: $fasta_dir/*.fa
+
+
+#Trim all the columns composed of 100% gaps. These alignments should be concantenated
+parallel -j $n_cores --plus "trimal -in  $align_dir/{/.}.fa -out $align_dir/{/.}_trimal.fa  -noallgaps \
+-fasta -sgc > $align_dir/{/.}_trimal.scores" ::: $fasta_dir/*.fa
 
 # The same, sequential, for the terminal (without user input):
 ## for fasta in *.fa; do name=$(basename $fasta .fa); mafft --maxiterate 1000 --globalpair
