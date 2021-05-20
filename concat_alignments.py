@@ -1,6 +1,8 @@
 #! /usr/bin/env python
 
-# Require biopython
+# This code takes as input a folder with alignments of the single copy orthogroups from
+# orthofinder and concatenates them 
+# Requires biopython
 try:
     from Bio.SeqIO.FastaIO import SimpleFastaParser
 except ImportError:
@@ -24,15 +26,13 @@ def concat_alignments(genome_dir, aln_dir, ext='faa', out_name='concatenated.fa'
     part_file = Path(f'{out_name}.part.txt')
     cat_file = Path(f'{out_name}.fa')
     if  cat_file.exists():
-            print(("Error: The concatenated alignment already exists, this program "
-                "is appending lines, so probably It's better to remove it first.")
+            raise FileExistsError("The concatenated alignment already exists, this program "
+                "appends lines, so probably It's better to (re)move this file first."
                 )
-            return 1
     if part_file.exists():
-            print(("Error: The partition file already exists, this program "
-                    "is appending lines, so probably It's better to remove it first.")
+            raise FileExistsError("The partition file already exists, this program "
+                    "is appending lines, so probably It's better to (re)move this file first."
                     )
-            return 1
 
     for aa in genome_dir.glob(f'*.{ext}'):
         counter += 1
@@ -54,7 +54,7 @@ def concat_alignments(genome_dir, aln_dir, ext='faa', out_name='concatenated.fa'
                             part_dic[aln_uniq_id] = len(seq)
                     # print(aln_id,len(seq))
 
-        #Write the sequences pertaining to only a single genome, that's why is appended
+        #Write the sequences pertaining to a single genome only, that's why is appended
             with open(cat_file, 'a') as cath:
                 print(f'>{aa_id}\n', textwrap.fill(f'{"".join(uniq_id_seq)}', width=100), 
                       sep='', file=cath)
