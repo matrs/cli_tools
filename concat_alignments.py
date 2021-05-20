@@ -91,9 +91,9 @@ def write_partition(part_dic, part_file):
 def arg_parser(args):
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, 
                             description='Creates a concatenated alignment in fasta format'
-                                         ' from a list of alignments in fasta format, and'
-                                         ' creates a partition file for it, where each '
-                                         'data block/partition corresponds to an individual'
+                                         ' from a list of alignments in fasta format and'
+                                         ' creates a partition file for it, where each'
+                                         ' data block/partition corresponds to an individual'
                                          ' alignment.')
 
     parser.add_argument('genome_dir',
