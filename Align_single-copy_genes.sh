@@ -7,7 +7,7 @@
 # Align all the genes from the single-copy orthogroups produced by `orthofinder`
 # First argument: The directory `Single_Copy_Orthologue_Sequences` from orthofinder.
 # Second argument: The folder where you want to place the alignment files.
-# Third argument: Number of proccesses run in parallel. ex: 4
+# Third argument: Number of proccesses run in parallel. ex.: 4
 
 # Pass **all the paths without trailing '/'**, they can be absolute or relative. Example:
 # fasta_dir='relative/Results_Nov09/Single_Copy_Orthologue_Sequences'
