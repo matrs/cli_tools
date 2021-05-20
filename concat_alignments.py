@@ -1,8 +1,9 @@
 #! /usr/bin/env python
 
 # This code takes as input a folder with alignments of the single copy orthogroups from
-# orthofinder and concatenates them. It also creates a partition file in nexus format, for this
-# where each partition corresponds to a single orthogroup 
+# orthofinder and concatenates them. It also creates a partition for modeltest-ng,
+# where each partition corresponds to a single orthogroup
+
 # Requires biopython
 try:
     from Bio.SeqIO.FastaIO import SimpleFastaParser
