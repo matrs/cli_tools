@@ -14,10 +14,8 @@ def raxml_part_to_nexus(in_file, out_file):
     n_lines = int(sp.check_output(f'wc -l {in_file}', shell=True, 
                                   universal_newlines=True).split(' ')[0])
     if  out_file.exists():
-        print(("Error: The nexus file already exists, this program is appending"
-              " lines, so probably It's better to remove it first.")
-             )
-        return 1
+        raise FileExistsError("Error: The nexus file already exists, this program is appending"
+              " lines, so probably It's better to (re)move it first.")
     
     with open(in_file, 'r') as parth, open(out_file, 'a') as nexush:
         charpartition = []
