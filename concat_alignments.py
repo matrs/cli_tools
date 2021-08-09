@@ -13,9 +13,32 @@ except ImportError:
 #Part of the standard library
 from pathlib import Path
 from collections import defaultdict
-import subprocess as sp
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 import textwrap
+
+def arg_parser(args):
+    parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, 
+                            description='Creates a concatenated alignment in fasta format'
+                                         ' from a list of alignments in fasta format and'
+                                         ' creates a partition file for it, where each'
+                                         ' data block/partition corresponds to an individual'
+                                         ' alignment.')
+
+    parser.add_argument('genome_dir',
+                        help = 'Directory containing all the genomes in fasta format.'
+                        )
+    parser.add_argument('aln_dir', 
+                        help = 'Directory containing all the alignments in fasta format.')
+    parser.add_argument('-ext', dest='ext', default='faa',
+                        help = 'Extension of the fasta files inside genome_dir')
+    parser.add_argument('-out_name', dest='out_name', default='concatenated',
+                        help = "Prefix of the concatenated alignment and the partition file,"
+                        " if it doesn't include a path, files are saved in the current " 
+                        " directory. The suffixes 'fa' and '.part.txt' are added to the"   
+                        " the alignment and the partition file respectively")
+    args = parser.parse_args()
+    
+    return args
 
 def concat_alignments(genome_dir, aln_dir, ext='faa', out_name='concatenated.fa'):
     
@@ -87,30 +110,6 @@ def write_partition(part_dic, part_file):
                 part = f'PROT, {item[0]} = {start_print}-{end}'
                 print(part, file=fh)
 
-
-def arg_parser(args):
-    parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, 
-                            description='Creates a concatenated alignment in fasta format'
-                                         ' from a list of alignments in fasta format and'
-                                         ' creates a partition file for it, where each'
-                                         ' data block/partition corresponds to an individual'
-                                         ' alignment.')
-
-    parser.add_argument('genome_dir',
-                        help = 'Directory containing all the genomes in fasta format.'
-                        )
-    parser.add_argument('aln_dir', 
-                        help = 'Directory containing all the alignments in fasta format.')
-    parser.add_argument('-ext', dest='ext', default='faa',
-                        help = 'Extension of the fasta files inside genome_dir')
-    parser.add_argument('-out_name', dest='out_name', default='concatenated',
-                        help = "Prefix of the concatenated alignment and the partition file,"
-                        " if it doesn't include a path, files are saved in the current " 
-                        " directory. The suffixes 'fa' and '.part.txt' are added to the"   
-                        " the alignment and the partition file respectively")
-    args = parser.parse_args()
-    
-    return args
 
 def main(args=None):
     args = arg_parser(args)
