@@ -79,7 +79,7 @@ def concat_alignments(genome_dir, aln_dir, ext='faa', out_name='concatenated.fa'
                             part_dic[aln_uniq_id] = len(seq)
                     # print(aln_id,len(seq))
 
-        #Writes the sequences pertaining to a single genome only, that's why is appended
+        #Writes the sequences pertaining to a single genome, that's why is appended
             with open(cat_file, 'a') as cath:
                 print(f'>{aa.stem}\n', f'{"".join(uniq_id_seq)}', 
                       sep='', file=cath)
