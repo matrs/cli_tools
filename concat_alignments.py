@@ -63,6 +63,8 @@ def concat_alignments(genome_dir, aln_dir, ext='faa', out_name='concatenated.fa'
         counter += 1
         print(counter, aa.name)
         part_dic = defaultdict()
+        uniq_id_seq = []
+        uniq_id_fa = set()
         with aa.open('r') as aah:
             for faa_id, seq in SimpleFastaParser(aah):
                 faa_uniq_id = faa_id.strip().split(' ')[0]
@@ -81,9 +83,6 @@ def concat_alignments(genome_dir, aln_dir, ext='faa', out_name='concatenated.fa'
             with open(cat_file, 'a') as cath:
                 print(f'>{aa.stem}\n', f'{"".join(uniq_id_seq)}', 
                       sep='', file=cath)
-            
-            uniq_id_seq = []
-            uniq_id_fa = set()
 
     write_partition(part_dic, part_file)
         
