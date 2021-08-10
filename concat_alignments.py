@@ -25,8 +25,7 @@ def arg_parser(args):
                                          ' alignment.')
 
     parser.add_argument('genome_dir',
-                        help = 'Directory containing all the annotated genomes in fasta format'
-                        ' (.ffn files from prokka, nucleotides)'
+                        help = 'Directory containing all the genomes in fasta format.'
                         )
     parser.add_argument('aln_dir', 
                         help = 'Directory containing all the alignments in fasta format.')

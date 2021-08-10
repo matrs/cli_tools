@@ -5,5 +5,5 @@ For `python` scripts, see:
 $ python script.py -h
 ```
 
-The `notebooks` folder has some notebooks, one-liners and code that is kind of 
+The `html_notebooks` folder has some notebooks, one-liners and code that is kind of 
 unorganized, but still can be useful.
