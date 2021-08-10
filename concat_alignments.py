@@ -61,11 +61,9 @@ def concat_alignments(genome_dir, aln_dir, ext='faa', out_name='concatenated.fa'
 
     for aa in genome_dir.glob(f'*.{ext}'):
         counter += 1
-        print('\n',counter, aa.name)
+        print(counter, aa.name)
         part_dic = defaultdict()
         with aa.open('r') as aah:
-            # Use the filename without the extension as the id line for fasta
-            aa_id = '_'.join(aa.name.split('_')[:-1])
             for faa_id, seq in SimpleFastaParser(aah):
                 faa_uniq_id = faa_id.strip().split(' ')[0]
                 uniq_id_fa.add(faa_uniq_id)
@@ -81,7 +79,7 @@ def concat_alignments(genome_dir, aln_dir, ext='faa', out_name='concatenated.fa'
 
         #Write the sequences pertaining to a single genome only, that's why is appended
             with open(cat_file, 'a') as cath:
-                print(f'>{aa_id}\n', textwrap.fill(f'{"".join(uniq_id_seq)}', width=100), 
+                print(f'>{aa.stem}\n', f'{"".join(uniq_id_seq)}', 
                       sep='', file=cath)
             
             uniq_id_seq = []
