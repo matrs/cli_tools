@@ -2,7 +2,7 @@
 
 # GNU parallel required, present in most of the linux systems, compatible with mac osx too
 # Run it:
-# bash Align_single-copy_genes.sh results_Nov20/Single_Copy_Orthologue_Sequences Results_Nov20/alignments 12
+# bash Align_single-copy_genes.sh results_Nov20/Single_Copy_Orthologue_Sequences Results_Nov20/alignments globalpair 12
 
 # Align all the genes from the single-copy orthogroups produced by `orthofinder`
 # First argument: The directory `Single_Copy_Orthologue_Sequences` from orthofinder.
@@ -17,12 +17,14 @@ fasta_dir=$1
 align_dir=$2
 # number of proccesses run in parallel, each process will use 1 core by default, 
 # because short aligments. 
-n_cores=$3
+# algo {globalpair, localpair}
+algo=$3
+n_cores=$4
 
 # trimal -in concatenated_rep.fa -out concatenated_rep_trimal.fa -noallgaps -fasta -sgc > gap_scores ::: $fasta_dir/*.fa
 # --globalpair --localpair
 mkdir -p "$align_dir"
-parallel -j $n_cores --plus "mafft --thread 1 --maxiterate 1000 --globalpair {} > \
+parallel -j $n_cores --plus "mafft --thread 1 --maxiterate 1000 --$algo {} > \
 $align_dir/{/.}.fa 2>> $align_dir/mafft.log" ::: $fasta_dir/*.fa
 
 
