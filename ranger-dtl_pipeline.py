@@ -1,6 +1,10 @@
 #! /usr/bin/env python
 
 
+# Execute this script with gnu parallel
+# parallel -j 28 "python /home/jmaturana/scripts/cli_tools/ranger-dtl_pipeline.py $edited_stree \
+#  {} $sname_dict ${output_dir}" ::: ${input_trees}/*.txt
+
 from pathlib import Path
 import subprocess as sp
 from collections import defaultdict
@@ -18,10 +22,13 @@ def arg_parser(args):
                                          ' and runs Ranger-DTL and Aggregate Ranger.  All the leaves '
                                          ' in the species and gene trees get transformed to random strings'
                                          ' because Ranger-DTL issues. The aggregated files get converted' 
-                                         ' back and a summary table gets created. A species Tree and a '
-                                         ' pickled dictionary are hardcoded')
+                                         ' back and a summary table gets created. Per each gene tree, a'
+                                         ' pickle dictionary is created to transform back the agg files by
+                                         " 'aggregate_aggs.py'")
 
-    parser.add_argument('species_tree', help = 'Previously edited species tree from Orthofinder')
+    parser.add_argument('species_tree', 
+                                    help = 'Previously edited species tree from Orthofinder. The edition may'
+                                    ' be made with edit_species_tree.py')
     parser.add_argument('gene_tree', help = 'Gene tree from Orthofinder.')
     parser.add_argument('snames_dict', 
                                     help='Species names to random string dictionary (pickle).'
