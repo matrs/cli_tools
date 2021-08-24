@@ -23,7 +23,7 @@ def arg_parser(args):
                                          ' in the species and gene trees get transformed to random strings'
                                          ' because Ranger-DTL issues. The aggregated files get converted' 
                                          ' back and a summary table gets created. Per each gene tree, a'
-                                         ' pickle dictionary is created to transform back the agg files by
+                                         ' pickle dictionary is created to transform back the agg files by'
                                          " 'aggregate_aggs.py'")
 
     parser.add_argument('species_tree', 
@@ -126,3 +126,4 @@ def main(args=None):
 
 if __name__ == "__main__":
     main()
+    
