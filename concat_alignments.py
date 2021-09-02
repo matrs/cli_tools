@@ -14,7 +14,6 @@ except ImportError:
 from pathlib import Path
 from collections import defaultdict
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
-import textwrap
 
 def arg_parser(args):
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, 
