@@ -66,7 +66,6 @@ def genbank_stats(gbk_file, feat_types=['CDS','rRNA', 'tRNA'], min_len_seq=1400)
 #   Create the nested dictionary with the counts of each feat type  
     for k in parent_dict.keys():
         counter[k] = Counter(parent_dict[k])
-    
     return counter
 
 
@@ -105,6 +104,11 @@ def main(args=None):
         name = gbk_file.stem
         print(name)
         counter = genbank_stats(gbk_file, feat_types=['rRNA', 'tRNA'], min_len_seq=args.min_len)
+        # Some genomes may not have any tRNA or rRNA, which will produce
+        # and error with create_df()
+        if 'tRNA' not in counter.keys() and 'rRNA' not in counter.keys():
+            print(f"{name} doesn't have any rRNA or tRNA so won't be in the final table")
+            continue
         counter_df = create_df(counter, name)
         ls_dfs.append(counter_df)
         
