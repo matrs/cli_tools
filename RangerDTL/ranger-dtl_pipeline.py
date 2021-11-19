@@ -21,10 +21,10 @@ def arg_parser(args):
                             description='Takes a gene tree and the species tree from Orthofinder'
                                          ' and runs Ranger-DTL and Aggregate Ranger.  All the leaves '
                                          ' in the species and gene trees get transformed to random strings'
-                                         ' because Ranger-DTL issues. The aggregated files get converted' 
+                                         ' (because Ranger-DTL issues). The aggregated files get converted' 
                                          ' back and a summary table gets created. Per each gene tree, a'
                                          ' pickle dictionary is created to transform back the agg files by'
-                                         " 'aggregate_aggs.py'")
+                                         " 'aggregate_aggs.py'. ")
 
     parser.add_argument('species_tree', 
                                     help = 'Previously edited species tree from Orthofinder. The edition may'
@@ -34,6 +34,12 @@ def arg_parser(args):
                                     help='Species names to random string dictionary (pickle).'
                                     ' ')
     parser.add_argument('out_dir', help = 'Output directory where the tree and dictionary will be placed.')
+    parser.add_argument('-ranger_bin', 
+                                    help="Path to the Ranger-DTL.linux file, which should be inside"
+                                    " CorePrograms/ ")
+    parser.add_argument('-aggregate_bin', 
+                                    help="Path to the AggregateRanger.linux file, which should be inside"
+                                    " CorePrograms/ ")
     args = parser.parse_args()
     
     return args
@@ -74,15 +80,15 @@ def convert_names(tree_file, names_dict, out_dir):
     return(ete_tree)
 
 
-ranger = "/home/jmaturana/Software/RangerDTL_Linux/CorePrograms/Ranger-DTL.linux"
-aggregate = "/home/jmaturana/Software/RangerDTL_Linux/CorePrograms/AggregateRanger.linux"
 D,T,L = [2,3,2],[3,3,4],[1,1,1]
-n_seeds = 10
+n_seeds = 3
 print(f'Number of different seeds {n_seeds}')
 
 
 def main(args=None):
     args = arg_parser(args)
+    ranger = args.ranger_bin
+    aggregate = args.aggregate_bin
     stree = args.species_tree
     og_tree = args.gene_tree
     out_dir = Path(args.out_dir)

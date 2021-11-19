@@ -16,8 +16,9 @@ def arg_parser(args):
                             description='Takes the species tree from Orthofinder and converts its'
                                          ' leaves names to strings of 9 random characters. Writes this tree and'
                                          " a dictionary with the mappings in pickle format, so they can be used"
-                                         " with 'ranger-dtl_pipeline.py'. Files 'species_tree_edited_rand_N0.nwk'" 
-                                         " and 'sname_to_rand.pkl' will be created")
+                                         " with 'ranger-dtl_pipeline.py'. It creates two Files:" 
+                                         " 'species_tree_edited_rand_N0.nwk' and 'sname_to_rand.pkl'" 
+                                         )
 
     parser.add_argument('species_tree', help = 'Species tree from Orthofinder.')
     parser.add_argument('out_dir', help = 'Output directory where the tree and dictionary will be placed.')

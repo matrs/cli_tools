@@ -2,7 +2,6 @@
 
 
 from pathlib import Path
-import subprocess as sp
 from collections import defaultdict
 import re, os
 from ete3 import Tree
@@ -18,6 +17,9 @@ def arg_parser(args):
 
     parser.add_argument('aggregated_dir', help = 'Folder where all the aggregated files are located')
     parser.add_argument('snames_dict', help='Species names to random string dictionary (pickle).')
+    parser.add_argument('-aggregate_bin', 
+                                    help="Path to the AggregateRanger.linux file, which should be inside"
+                                    " CorePrograms/ ")
     args = parser.parse_args()
     
     return args
