@@ -60,7 +60,7 @@ def selecting_ogs(nodes_dir, node_to_use, tree_path):
         # with no genes for a particular OG (NAs)
         for asm, gene in row[3:][row[3:].notna()].items():
             genome_dict[asm].append(gene.split(','))
-        og_dict[row['OG']] = genome_dict
+        og_dict[row['HOG']] = genome_dict
     
     print(f'Total number of OGs which are children of {node_to_use}: {len(og_dict.keys())}')
     tree = Tree(newick= tree_path, format=1)
