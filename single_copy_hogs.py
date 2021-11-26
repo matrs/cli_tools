@@ -11,7 +11,7 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 def arg_parser(args):
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, 
-                            description='Selects  single-copy hierarchical orthogroups (HOGs),'
+                            description='Selects  single-copy Hierarchical Orthogroups (HOGs),'
                                          ' present in all the genomes of a given node in the species tree'
                                          '  created by Orthofinder. It writes this list to the file '
                                          ' "single_copy_HOGs_{node_to_use}.list"'
@@ -34,25 +34,23 @@ def arg_parser(args):
     
     return args
 
-
-def selecting_ogs(nodes_dir, node_to_use, tree_path):
+def built_og_dict(nodes_dir, node_to_use):
     '''
-    Get all the OGs which are present in all the genomes belonging to a 
-    specific node (node_to_use).
+        Build a nested dictionary, where each OG is a key and each value is
+        a dictionary with  {assemblies:genes} as k:v pairs. 'genes'  is a nested list.
 
-    nodes_dir: Path of the `Phylogenetic_Hierarchical_Orthogroups` directory.
-    node_to_use: To select this node, see the tree in SpeciesTree_rooted_node_labels.txt 
-    inside `Species_Tree` directory. It should be 'N50', 'N0', etc.
-    tree_path: `SpeciesTree_rooted_node_labels.txt` path.
+        nodes_dir: Path of the `Phylogenetic_Hierarchical_Orthogroups` directory.
+        node_to_use: str, N0, N1,N2, etc. To select it, see SpeciesTree_rooted_node_labels.txt
+        inside `Species_Tree` directory.
     '''
+    
     nodes_dir = Path(nodes_dir)
     node_to_use = node_to_use.upper()
     node_to_use_file =  f'{node_to_use}.tsv'
     n_df = pd.read_csv(nodes_dir.joinpath(node_to_use_file), sep='\t', low_memory=False)
-    global og_dict
     og_dict = defaultdict()
     
-    # Build a dictionary where each key is an OG and each value is a dictionary
+    # Build a dictionary where each key is a HOG and each value is a dictionary
     # with genomes as keys and genes as values (a nested list of genes)
     for i, row in n_df.iterrows():
         genome_dict = defaultdict(list)
@@ -61,7 +59,17 @@ def selecting_ogs(nodes_dir, node_to_use, tree_path):
         for asm, gene in row[3:][row[3:].notna()].items():
             genome_dict[asm].append(gene.split(','))
         og_dict[row['HOG']] = genome_dict
-    
+    return og_dict
+
+def select_og_inall(nodes_dir, node_to_use, tree_path):
+    '''
+    Get all the OGs which are present in all the genomes belonging to a 
+    specific node (node_to_use).
+
+    og_dict: nested dictionary from built_og_dict()
+    tree_path: `SpeciesTree_rooted_node_labels.txt` path.
+    '''
+    og_dict = built_og_dict(nodes_dir, node_to_use)
     print(f'Total number of OGs which are children of {node_to_use}: {len(og_dict.keys())}')
     tree = Tree(newick= tree_path, format=1)
     for node in tree.traverse():
@@ -86,7 +94,7 @@ def select_single_copy_hogs(og_present_inall):
     hog_single_copy = []
     swt = False
     for og in og_present_inall:
-        # if this loop get completed, the OG has only one 1 gene per genome
+        # if this loop get completed, the OG has only one gene per genome
         for k,v in og_dict[og].items():
             # Flatten the nested list of genes
             genes = [gene for ls in v for gene in ls]
