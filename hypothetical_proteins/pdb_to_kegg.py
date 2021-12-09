@@ -94,7 +94,7 @@ def build_table(pickle_file, out_table):
             # Sometimes there isn't a result so d is empty
             if d:
                 kegg_gene = d[acc][0] #1st element of the values
-                result = kgrest.kegg_link("ko", kegg_gene).read()
+                result = kgrest.kegg_link("ko", kegg_gene).read().strip()
                 if result:
                     ko = result.strip().split('\t')[1]
                 else:
