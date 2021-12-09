@@ -95,8 +95,10 @@ def build_table(pickle_file, out_table):
             if d:
                 kegg_gene = d[acc][0] #1st element of the values
                 result = kgrest.kegg_link("ko", kegg_gene).read()
-                ko = result.strip().split('\t')[1]
-                print(kegg_gene)
+                if result:
+                    ko = result.strip().split('\t')[1]
+                else:
+                    print(f"the KEGG gene {kegg_gene} doesn't return a valid result")
             # Write empty strings where there isn't a result
             else:
                 print(f"{acc} didn't get any results in the KEGG DB")
