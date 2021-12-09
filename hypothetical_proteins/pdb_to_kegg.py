@@ -88,7 +88,8 @@ def build_table(pickle_file, out_table):
             search_terms = Q(pdb_id=pdb_id)
             filter_terms = ['entry_uniprot_accession', 'entry_uniprot_id']
             results = run_search(search_terms,filter_terms=filter_terms)
-            if results:
+#             results may be [{}]
+            if results[0]:
                 acc = results[0]['entry_uniprot_accession'][0]
                 u = UniProt()
                 d = u.mapping(fr='ID', to='KEGG_ID', query=acc)
