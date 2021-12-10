@@ -45,8 +45,7 @@ def arg_parser(args):
     parser.add_argument('in_file', help = "Name of the input partition file, coming from"
                         " modeltest-ng.")
     parser.add_argument('out_file', help = "Name of the output partition file,"
-                        " if it doesn't include a path, file is saved in the current " 
-                        " directory.")
+                        " " )
 
     args = parser.parse_args()
     

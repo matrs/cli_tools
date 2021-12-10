@@ -32,8 +32,7 @@ def arg_parser(args):
                         help = 'Extension of the fasta files inside genome_dir')
     parser.add_argument('-out_name', dest='out_name', default='concatenated',
                         help = "Prefix of the concatenated alignment and the partition file,"
-                        " if it doesn't include a path, files are saved in the current " 
-                        " directory. The suffixes 'fa' and '.part.txt' are added to the"   
+                        " The suffixes 'fa' and '.part.txt' are added to the"   
                         " the alignment and the partition file respectively")
     args = parser.parse_args()
     
